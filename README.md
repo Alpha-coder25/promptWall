@@ -142,7 +142,15 @@ configs/       default_policy.yaml, taxonomy/atlas_owasp_nist_map.yaml
 demo/          week1_smoke.py
 tests/         unit/, integration/, evasion/, compatibility/, security/
 docs/          limitations.md
+frontend/      separate React console (fixture data, deployable on Vercel)
 ```
+
+## Frontend console
+
+`frontend/` is an independent Vite + React + TypeScript security console. It does not
+change or import the Python gateway, and it runs on clearly labelled fixture data until a
+gateway URL is configured. See [frontend/README.md](frontend/README.md) for screens, the
+proposed API contract, and Vercel deployment (root directory `frontend`).
 
 ## Security posture
 

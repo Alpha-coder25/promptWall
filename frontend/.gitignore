@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vercel/
+.smoke-profile/
+.smoke.mjs
+.env
+.env.local
+.env.*.local
+*.log
