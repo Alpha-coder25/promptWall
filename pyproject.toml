@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "promptwall"
+version = "0.1.0"
+description = "Self-hosted LLM application security gateway (Week 1: detection core and audit trail)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  # ASGI framework and server
+  "fastapi==0.115.6",
+  "uvicorn[standard]==0.34.0",
+  # Request validation and settings
+  "pydantic==2.10.4",
+  "pydantic-settings==2.7.0",
+  # Persistence and migrations
+  "SQLAlchemy==2.0.36",
+  "greenlet==3.1.1",
+  "alembic==1.14.0",
+  "psycopg[binary]==3.2.3",
+  # Upstream provider calls
+  "httpx==0.28.1",
+  # Structured JSON logging
+  "structlog==24.4.0",
+  # Policy files
+  "PyYAML==6.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.3.4",
+  "pytest-asyncio==0.25.0",
+  "respx==0.22.0",
+  "aiosqlite==0.20.0",
+  "openai==1.59.3",
+  "ruff==0.8.6",
+  "mypy==1.14.1",
+]
+
+[project.scripts]
+promptwall = "promptwall.main:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/promptwall"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["error::DeprecationWarning:promptwall.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "demo"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "C4", "SIM"]
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/promptwall", "demo", "tests"]
+strict = true
+warn_unused_ignores = true
+disallow_untyped_decorators = false
+plugins = []
+
+[[tool.mypy.overrides]]
+module = ["yaml.*", "structlog.*", "respx.*"]
+ignore_missing_imports = true

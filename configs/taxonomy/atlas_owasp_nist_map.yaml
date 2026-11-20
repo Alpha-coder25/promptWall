@@ -1,0 +1,33 @@
+# Taxonomy map seeded into the taxonomy_map table at startup.
+#
+# Starting values only. Verify against the official MITRE ATLAS and OWASP LLM
+# Top 10 pages before publishing; identifiers are not asserted as final here.
+#
+# atlas_id: MITRE ATLAS technique
+# owasp_id: OWASP Top 10 for LLM Applications (2025)
+# nist_function: NIST AI RMF core function (GOVERN, MAP, MEASURE, MANAGE)
+categories:
+  - category: INSTRUCTION_OVERRIDE
+    atlas_id: AML.T0051.000
+    owasp_id: LLM01
+    nist_function: MEASURE
+  - category: ROLE_INJECTION
+    atlas_id: AML.T0054
+    owasp_id: LLM01
+    nist_function: MEASURE
+  - category: PROMPT_LEAKAGE
+    atlas_id: AML.T0056
+    owasp_id: LLM07
+    nist_function: MEASURE
+  - category: DELIMITER_ABUSE
+    atlas_id: AML.T0051.001
+    owasp_id: LLM01
+    nist_function: MEASURE
+  - category: DATA_EXFILTRATION
+    atlas_id: AML.T0057
+    owasp_id: LLM02
+    nist_function: MANAGE
+  - category: ENCODED_PAYLOAD
+    atlas_id: AML.T0068
+    owasp_id: LLM01
+    nist_function: MEASURE

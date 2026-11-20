@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: promptwall
+      POSTGRES_PASSWORD: promptwall
+      POSTGRES_DB: promptwall
+    ports:
+      - "5432:5432"
+    volumes:
+      - promptwall_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U promptwall -d promptwall"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://promptwall:promptwall@postgres:5432/promptwall
+      UPSTREAM_BASE_URL: ${UPSTREAM_BASE_URL:?set UPSTREAM_BASE_URL in .env}
+      UPSTREAM_API_KEY: ${UPSTREAM_API_KEY:?set UPSTREAM_API_KEY in .env}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?set ADMIN_TOKEN in .env}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      CONFIG_DIR: /app/configs
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  promptwall_pgdata:

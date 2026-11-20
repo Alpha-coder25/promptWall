@@ -1,0 +1,12 @@
+# Default project policy.
+#
+# Thresholds and scoring weights in src/promptwall/core/scoring.py are PROVISIONAL
+# this week and will be replaced by calibration on validation data in Week 2.
+version: 1
+mode: balanced
+refusal_text: "This request was blocked by PromptWall because it matched prompt-injection policy."
+sanitize_placeholder: "[REMOVED BY PROMPTWALL]"
+# Optional per-project override of the mode thresholds (low, high).
+# thresholds:
+#   low: 0.4
+#   high: 0.7
