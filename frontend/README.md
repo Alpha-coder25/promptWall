@@ -34,6 +34,8 @@ npx vercel login
 npx vercel --prod
 ```
 
+Live deployment: https://frontend-jade-three-1rbxxcfqlx.vercel.app
+
 Set `VITE_API_BASE_URL` in the Vercel project environment when a gateway exists. Without it,
 the deployed console is a UI demo in fixture mode.
 
